@@ -1,0 +1,480 @@
+% ==========================================================
+% Beispielvorlage für Abschlussarbeiten - 01.10.2015
+% Autoren:	Lutz Althüser (2015)
+% 
+% Zur verfügung gestellt für die Fachschaft Physik der WWU Münster.
+% ==========================================================
+% Dies ist eine Beispielvorlage zur Erstellung einer eigenen Abschlussarbeit (Bachelor oder Master).
+% Da einige Einstellungen und Pakete nicht jedem bekannt sein werden sind diese im Folgenden gut kommentiert und 
+% dokumentiert eingebunden. Diese Einstellungsseite sollte zu Beginn der Arbeit ein mal komplett durchgegangen 
+% und entsprechend angepasst werden.
+%
+% Features:	- konfigurierbar für englische und deutsche Arbeiten (siunitx und selectlanguage anpassen)
+%			- einseitiges und doppelseitiges Format
+%			- ToDo Notes direkt im Text erstellen und zentral verwalten
+%			- variabler Zeilenabstand
+%			- variable Absatzformatierung
+%			- intelligentes Literaturverzeichnis
+%			- komplett fertig mit allen Strukturen (Dateien und Ordnern)
+%			- uvm. ...
+% 
+% Fragen an: coding@l-althueser.de
+%	   oder: fsphys@uni-muenster.de
+%
+% Themensteller: XY
+% Zweitgutachter: XY
+% Westfälische-Wilhelms-Universität Münster
+% Institut für XY
+% AG XY
+% ==========================================================
+% Definition der Dokumentenklasse: \documentclass[Optionen]{Klassenname}
+% Unter Verwendung von der KOMA-Script Klasse 'srcreprt' 
+\documentclass[%
+	a4paper,		% Papiergroesse im DIN A4-Format
+%	oneside,		% Einseitiger Druck
+	twoside,		% Zweiseitiger Druck
+	openright, 		% Neue Kapitel beginnen immer auf einer rechten Seite
+	11.5pt,			% Schriftgroesse
+%	draft,			% Option unterscheidet zw. Dokument im Entwurfsstadium und fertigen Dokument
+	toc=listof,		% Abbildungs- und Tabellenverzeichnis erhalten einen Eintrag im Inhaltsverzeichnis ohne Nummerierung
+	toc=bibliography, % Literaturverzeichnis erhaelt einen Eintrag im Inhaltsverzeichnis ohne Nummerierung
+%	toc=flat,		% Inhaltsverzeichnis erhaelt eine tabellarische Form (ohne Einruecken der unteren Ebenen)
+%	chapterprefix,	% Kapitelueberschriften werden nicht in kompakter Form dargestellt
+%	appendixprefix	% Anhangueberschriften werden nicht in kompakter Form dargestellt
+%	titlepage		% Titel und Zusammenfassung erscheinen auf einer eigenen Seite (Voreinstellung für 'book' und 'report')
+%	fleqn			% Mathematische Formeln werden linksbuendig statt zentriert gesetzt
+%	leqno			% Mathematische Formeln werden auf der linken Seite statt auf der rechten Seite nummeriert
+	BCOR=5mm,		% Bindekorrektur [Faustregel für Leimbindung: (Papierstapel / 2 + 2)mm]
+    captions=tableheading,% Tabellenüberschriften statt -unterschriften
+    numbers=noenddot,% Nummerierungen der Form 1.2 statt 1.2.
+	DIV=11,			% Größe der Ränder (kleinere Zahl => größerer Rand)
+]{scrreprt}
+
+% Anpassungen für 'tiefere' Nummerierungen
+%\setcounter{tocdepth}{4}
+%\setcounter{secnumdepth}{4}
+
+% ==========================================================
+% ===================================
+% Einbindung von Erweiterungspaketen
+% ===================================
+
+\usepackage[utf8]{inputenc}
+% Verwendung der neuen deutschen Rechtschreibung mit 'ngerman'
+% 'babel' kann Optionen fuer mehrere Sprachen zugleich enthalten
+\usepackage[ngerman, english]{babel}
+% \selectlanguage{sprache} wechselt zw. verschiedenen Sprachen
+\selectlanguage{ngerman}
+%\selectlanguage{english}
+\usepackage{blindtext}
+\usepackage[%
+	autostyle,			% erkennt automatisch die Sprache aus 'babel' Paket
+	%english = american	% englische styles
+	german=quotes		% mit dieser Option werden die deutschen Anfuehrungszeichen verwendet
+]{csquotes}				% Paket legt das Aussehen der Anfuehrungszeichen fest; Kommando \enquote{} 
+						% setzt den Text zw. Klammern in Anfuehrungszeichen
+\MakeOuterQuote{"}
+
+% Paket enthaelt neben vielen anderen Symbolen auch das Eurozeichen in offizieller Gestalt (Befehl: \EUR)
+\usepackage{marvosym}
+
+% --- Verwendung von PostScript Schriften im Skript
+% Die in LaTeX eingebauten Schriften koennen komplett ausgetauscht werden. Neben aesthetischen Gruenden spricht dafuer auch die Verwendung von PostScript Schriften, die Vektorschriften sind im Gegensatz zu den urspruenglichen Pixelschriften. Nach dem Austausch sind alle Kommandos wie gehabt zu verwenden; es werden lediglich andere Schriften dargestellt
+%\usepackage{mathptmx,charter,courier}
+% da die Schrift Helvetica uebrgross ist, wurde Option 'scaled' verwendet, die eine Verkleinerung bewirkt
+%\usepackage[scaled]{helvet}
+
+% --- PostScript Symbole
+\usepackage{pifont}
+
+% --- Paket zur Festsetzung des Raumes zwischen den Zeilen
+\usepackage{setspace}
+\setstretch{1.35}	% angepasster Teilenabstand (netterer Textfluss)
+%\onehalfspacing	% 1.5facher Zeilenabstand abhaengig von der verwendeten Schriftgroesse
+
+% --- Paket zur Behebung einiger Inkompatibilitaeten von anderen Paketen mit KOMA-Script
+\usepackage{scrhack}
+
+% --- Paket fuer erweiterte Tabelleneigenschaften
+\usepackage{array}
+\usepackage{booktabs}			% Vernünftige Linien für Tabellen
+\usepackage{tabularx}			% Tabellen mit Textbreite
+\usepackage[svgnames]{xcolor}	% Farben
+
+% --- Paket um Grafiken im Dokument einbetten zu koennen
+\usepackage{graphicx}	% Hauptpaket zur Einbindung von Graphiken
+\usepackage{caption}	% erlaubt eine Anpassung von Bild- und Tabellenbeschriftungen, voraussetzung fuer 'subfig' Paket
+% Bsp. siehe Dokumentation 'Anpassen der Abbildungs- und Tabellenbeschriftungen mit Hilfe des caption-Paketes'
+%\usepackage[format=hang,
+%			 font={footnotesize,sf},
+%			 labelfont={bf},
+%			 margin=1cm,
+%			 aboveskip=5pt,
+%			 position=bottom
+%]{caption}		
+
+% Zusammensetzung einer Abbildung aus mehreren Teilabbildungen moeglich
+%\usepackage{subfig}
+\usepackage{subfigure}
+% Vermischung von Text und Graphik moeglich, z.B. dass Text die Abbildung umfliesst, Alternative: 'floatflt', 'wrapfig'
+\usepackage{wrapfig}
+\usepackage{float}		% Option "H" (platziert Objekt fest)
+\usepackage{placeins}	% alle aufgelaufenen Gleitobjekte platzieren (\FloatBarrier)
+
+\usepackage{eso-pic}
+\usepackage{chngpage}
+
+%% Zeichnen mit LaTeX (teilweise extrem umständlich)
+%\usepackage{pstricks,% grundlegendes Zeichenpaket
+%			 pst-circ,% Schaltpläne
+%			 pst-node,% Knoten und Kanten für Graphen
+%            pst-plot,% Plotten von Daten und Funktionen
+%            pst-fill}% Schraffur von Flächen
+%\usepackage{pst-pdf}% Einbindung von Postscript-Code in PDF (kompliziert!)
+%\SpecialCoor% Möglichkeit zur Verwendung von Polarkoordinaten
+%\psmathboxtrue% Mathematikmodus in pstricks-Boxen
+
+% --- Pakete fuer mathematischen Textsatz
+% Basis-Paket fuer AMS-LaTeX - erleichtert das Schreiben mathematischer Formeln und verbessert die Qualitaet der Darstellung
+\usepackage{amsmath}
+% definiert Namen fuer zahlreiche zusaetzliche mathematische Symbole
+\usepackage{amssymb}
+% erweitert 'amsmath' um zusaetzliche graphische Anzeigemoeglichkeiten wie z.B. Boxen und Markierungen
+\usepackage{empheq}
+% bewirkt, dass Integralgrenzen oberhalb und unterhalb des Integralzeichens gewetzt werden (ebenso Summenzeichen)
+%\usepackage[intlimits]{empheq}
+\usepackage{dsfont}
+% liefert ein \text-Befehl fuer die Setzung eines kurzen Textes innerhalb einer mathematischen Umgebung
+\usepackage{amstext}
+% liefert weitere mathematische Schriftarten, wie z.B. \mathbb{R} oder \mathbb{C} als Zeichen der reellen oder komplexen Zahlen
+\usepackage{amsfonts}
+% Paket zu Definition und Verwendung von Theorem-aehnlichen Umgebungen, wie Satz, Lemma, Definition usw.
+\usepackage{amsthm}
+% erweitert die Schriftart 'wasy' mit weiteren Zeichen, wie \int oder \iint fuer einfaches oder doppeltes Integralzeichen
+\usepackage{wasysym}
+
+% --- Paket erweitert deutlich die Verwendung von Farben aus dem Paket 'graphicx'
+\usepackage{color}
+\usepackage{tikz}
+
+% --- Paket um Quellcode sauber zu formatieren
+% --- Alternative Pakete sind 'verbatim', 'moreverb' oder 'fancyvrb'
+\usepackage{listings}
+
+% --- Darstellung von Pseudocode und mehr (algorithmicx packages)
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+%% Physikalisches
+\usepackage{nicefrac} % alternative Darstellung von Brüchen (sinnvoll im Text) 
+%\usepackage[locale=EN,% deutsche Einstellungen (z.B. Dezimalzeichen ",")
+%						load={prefix,prefixed,abbr,physical,accepted,addn},% vordefinierte Einheiten
+%						alsoload={binary,synchem,hep,astro,geophys},% noch mehr vordefinierte Einheiten
+%						seperr,% Fehler über \plusminus
+%						repeatunits=false,% Format (1,5 \plusminus 0,1) mm
+%						per=fraction,% Bruchstrich bei Bedarf
+%						fraction=nice,% Bruchstrich über \nicefrac
+%						unitsep=thin]{siunitx}% Abstand zwischen Einheiten
+%\newunit{\flops}{Flops}% selbstdefinierte Einheit
+\usepackage{units}
+\usepackage{siunitx}
+\sisetup{
+  inter-unit-product 	=	$\cdot$,
+  fraction-function   	= 	\nicefrac,
+  load-configurations 	= 	abbreviations,
+  per-mode            	= 	fraction,
+  separate-uncertainty	=	true,
+  output-decimal-marker	=	{,},
+  %output-decimal-marker	=	{.}
+  }   
+\usepackage{isotope}% Satz von chemischen Elementen
+
+%% Quellcode
+\usepackage{listings}% Umgebung für Quellcode
+%\lstloadlanguages{C++}% benutzte Sprachen (nicht unbedingt nötig)
+\lstset{basicstyle=\small,						% Stil von normalem Code
+        keywordstyle=\color{DarkBlue}\bfseries,	% Stil von Schlüsselwörtern
+        commentstyle=\color{Gray}\itshape,		% Stil von Kommentaren
+        stringstyle=\color{DarkGreen}\ttfamily,	% Stil von Stringliteralen
+        showstringspaces=false,					% Kennzeichnung von Leerzeichen in Stringliteralen
+        numbers=left,							% Zeilennummerierung
+        numberstyle=\tiny,						% Stil der Zeilennummerierung
+        frame=shadowbox,						% Umrandung für die Quelltext-Umgebung
+        rulesepcolor=\color{DarkSlateBlue},		% Farbe der Umrandung
+        breaklines,								% automatischer Umbruch bei zu langen Zeilen
+        tabsize=4,								% ersetzt Tabulator durch Leerzeichen
+        %defaultdialect=[ANSI]C++,				% Standarddialekt der Standardsprache
+        %language=C++,							% Standardsprache, wenn nichts anderes angegeben wird
+		captionpos=b}							% Position der Beschriftung							
+%\lstdefinelanguage{pseudo}% Definition einer eigenen Sprache
+%	{morekeywords={if,then,else,for,%
+%                 forall,not,or,and},% Schlüsselwörter
+%    morecomment=[l]//,% Zeilenkommentar über //
+%    morecomment=[s]{/*}{*/},% Blockkommentar über /* ... */
+%    moredelim=[is][\color{red}]{/!}{!/}}% alles zwischen /! und !/ rot hervorheben
+
+%% Zitierstil
+%\usepackage[square]{natbib}% naturwissenschaftliche Zitierstile, Referenzen in eckigen Klammern
+%\renewcommand{\cite}[1]{ \citep{#1}}% Leerzeichen vor Referenz (Lösung nicht wirklich elegant...)
+%\citestyle{dinat}% deutscher Zitierstil nach DIN
+
+% --- Einstellungen des Einzugs
+\usepackage{parskip}% Einzug aus, Absatzabstand ein
+\setparsizes{0}{0.25\baselineskip plus .25\baselineskip}{1em plus 1fil}
+
+% --- Eigene flexible Gestaltung der Kopf- und Fusszeile moeglich
+\usepackage{fancyhdr}
+
+% --- Programmiersprachentypische Kontrollstrukturen (logische Verzweigungen und Schleifen)
+\usepackage{ifthen}
+
+% --- laesst arithmetische Operationen zu
+%\usepackage{calc}
+
+% --- zur Erzeugung eines Stichwortverzeichnisses
+%\usepackage{makeidx}
+
+% --- Erweiterungspaket, um die Ausgabe der Zitate an die eigenen Erfordernisse anzupassen
+% - Paket 'natbib' definiert u.a. zahlreiche Alternativen zum \cite-Befehl
+% - globale Einstellungen werden ueber die Optionen des Paketes vorgenommen, siehe Paket-Dokumentation
+%\usepackage[numbers,sort&compress]{natbib}% Zitate werden nummeriert ausgegeben; bei mehrfachen Zitaten werden die
+										   % vorkommenden Nummern sortiert und ggf. in verkuerzter Darstellung gesetzt
+
+% --- Paket zur Erzeugung von Hypertext-Links aus LaTeX Querverweisen
+\usepackage[
+	bookmarks,		% Erzeugung von Lesezeichen fuer den Reader
+	raiselinks,		% Korrektur in der Linkausgabe
+	pageanchor,		% PDF-Ankererzeugung auf jeder Seite, um Inhaltsverzeichnis mit Hypertext-Links zu versehen
+   %frenchlinks,	% use small caps instead of color for links
+   %colorlinks,		% Verwendung von farbiger Links statt Links mit Rahmen
+					% Farben der Linkarten (...color=...)
+	citecolor=green,% Color for bibliographical citations in text
+	linkcolor=blue,	% Color for normal internal links
+	urlcolor=magenta,% Color for linked URLs					
+	filecolor=cyan,	% Color for URLs which open local files
+	menucolor=red,	%	Color for Acrobat menu items
+	pagebackref,	% Adds 'backlink' text to the end of each item in the bibliography, as a list of page numbers
+]{hyperref}
+
+\usepackage{cleveref} %Muss nach hyperref stehen!
+\crefname{equation}{equation}{equations}
+\crefname{figure}{figure}{figures}
+\crefname{section}{section}{sections}
+
+% --- Layout-Aenderung leicht moeglich (Erweiterung von dem Paket 'vmargin')
+% --- !!! Bei Verwendung des Paketes 'hyperref' muss die Einbindung von 'geometry' nach 'hyperref' erfolgen !!!
+\usepackage[
+	left=3cm,right=2.5cm,top=1.5cm,bottom=1.5cm,	% Groesse der Raender
+	headheight=7mm,headsep=0.9cm,					% Hoehe der Kopfzeile; Abstand der Grundlinie der Kopfzeile zum Haupttext
+	footskip=1.5cm,includeheadfoot					% Abstand der Grundlinien der letzten Textzeile und der Fusszeile; Kopf- und Fusszeile werden in die Textseite gesetzt
+]{geometry}
+
+%% Feintuning des Layouts
+\clubpenalty = 10000			% letzte Zeile einer Seite = neuer Absatz verboten
+\widowpenalty = 10000 			% erste Zeile einer Seite = Absatzende verboten
+\displaywidowpenalty = 10000	% wie widowpenalty, aber nach abgesetzten Formeln
+\binoppenalty = 10000			% kein Umbruch nach Operator (inline-Formel)
+\relpenalty = 10000				% kein Umbruch nach Relation (inline-Formel)
+\brokenpenalty = 10000			% Trennung in der letzten Zeile einer Seite verboten
+
+% ===========================
+% Definition eigener Befehle
+% ===========================
+
+% --- Eigene Befehle
+% \newcommand{\Befehl}{Befehlsdefinition} - Befehl ohne Parameter, '\Befehl' kann abkuerzend fuer die 'Befehlsdefinition' verwendet werden
+% \renewcommand{\Befehl}{Neue Befehlsdefinition} - Befehl ohne Parameter, um einen schon vorhandenen Befehl umzudefinieren
+%\newcommand{\R}{\mathbb{R}}% Symbol fuer reelle Zahlen
+\renewcommand{\div}{\mathrm{div}}% Symbol fuer den Divergenz Operator
+% \newcommand{\Befehl}[Anzahl]{Befehlsdefinition} - Befehle mit Parametern; 'Anzahl' ist die Zahl der Befehlsparameter, die maximal neun betraegt; innerhalb der 'Befehlsdefinition' werden die Parameter als #1, #2, ... verwendet
+\newcommand{\tv}[1]{|#1|_{BV(\Omega)}}%	TV Halbnorm
+\newcommand{\Lp}[2]{\left\| #2 \right\|_{L^{#1}(\Omega)}}% L^p Norm
+
+% --- Umgebungen fuer hervorgehobene und nummerierte Textpassagen, wie Definitionen, Saetze, Korollare etc.
+% \newtheorem{Umgebungsname}{Markierungstext} - erzeugt eine neue Umgebung 'Umgebungsname', die beim Setzen den 'markierungstext' als Name ausgibt. Die Umgebung besitzt einen eigenen Zaehler.
+% \newtheorem{Umgebungsname}[Anderer Umgebungsname]{Markierungstext} - aehnlich wie oben, nur dass die Umgebung den Zaehler der angegebenen anderen Umgebung verwendet.
+% \newtheorem{Umgebungsname}{Markierungstext}[section] - aehnlich wie oben, nur dass die Umgebung einen eigenen Zaehler besitzt, der pro \section gesetzt wird.
+% Definierte Umgebungen haben jeweils einen optionalen Parameter, der eine Ueberschrift oder Kurzbeschreibung des Theorems enthalten kann, z.B. \begin{thm}[Wichtiger Satz] Text \end{thm}
+\theoremstyle{plain} \newtheorem{lem}{Lemma}[section]
+\theoremstyle{remark} \newtheorem*{rem}{Remarks and Extensions}% Zaehler wird nicht ausgegeben
+\theoremstyle{plain} \newtheorem{thm}[lem]{Theorem}
+\theoremstyle{plain} \newtheorem{defi}[lem]{Definition}
+\theoremstyle{plain} \newtheorem{cor}[lem]{Corollary}
+
+% --- Funktions- und Operatornamen
+% \DeclareMathOperator{\Operator}{Text} - definiert einen eigenen Operatornamen
+% \DeclareMathOperator*{\Operator}{Text} - erlaubt zudem, dass Hoch- bzw. Tiefstellungen ueber bzw. unter dem Operatornamen platziert werden
+\DeclareMathOperator*{\argmin}{\arg \min}%
+
+%% Zusätzliche Befehle
+\usepackage{suffix} % einfache Unterscheidung zwischen \befehl und \befehl*
+%% Strukturierung
+\newcommand{\engl}[1]{\emph{#1}}																												% englische Fachbegriffe
+\newcommand{\ccode}[1]{\lstinline[basicstyle=\normalsize\ttfamily]{#1}}	% C-Code im Text
+\newcommand*{\headline}[1]{\multicolumn{1}{c}{\textbf{#1}}}			 	% Tabellenüberschrift 
+%% Mathematik
+\newcommand{\corresponds}{\ensuremath{\stackrel{\scriptscriptstyle\wedge}{=}}} % "entspricht"
+\newcommand{\laplace}{\triangle}							% Laplace-Operator
+\newcommand{\intd}{\ensuremath\,\text{d}}					% für das d in dx
+\newcommand{\e}{\ensuremath\text{e}}						% eulersche Zahl
+\newcommand{\im}{\ensuremath\hat{\imath}}					% imaginäre Einheit
+\newcommand{\N}{\ensuremath\mathbb{N}}						% natürliche Zahlen
+\newcommand{\Z}{\ensuremath\mathbb{Z}}						% ganze Zahlen
+\newcommand{\Q}{\ensuremath\mathbb{Q}}						% rationale Zahlen
+\newcommand{\R}{\ensuremath\mathbb{R}}						% reelle Zahlen
+\newcommand{\C}{\ensuremath\mathbb{C}}						% komplexe Zahlen
+%\newcommand{\sha}{{\fontencoding{OT2}\selectfont\char88}}	% für die Sha-Funktion
+%\newcommand{\E}{\ensuremath{\mathcal{E}}}					% "geschwungenes" E
+\newcommand{\eqdot}{\,.}									% Punkt am Ende von Gleichung
+\newcommand{\eqcomma}{\,,}									% Komma am Ende von Gleichung
+\newcommand{\eqsemi}{\,;}									% Strichpunkt am Ende von Gleichung
+%% Verweise
+\newcommand{\figref}[1]{Abbildung~\ref{#1}}					% ~ schützt vor Trennung
+\WithSuffix\newcommand\figref*[1]{Abbildung~\subref{#1}}	% \figref* für Verweise in subfloats
+\newcommand{\tableref}[1]{Tabelle~\ref{#1}}					% das gleiche für Tabellen		
+\WithSuffix\newcommand\tableref*[1]{Tabelle~\subref{#1}}	% und auch table mit subfloats
+\WithSuffix\newcommand\eqref*[1]{Gleichung~\eqref{#1}}		% \eqref allein gibts schon
+%% Abkürzungen (dienen nur als Beispiel)
+%\newcommand{\ncore}{\ensuremath{n_\text{Kern}}}
+%\newcommand{\nclad}{\ensuremath{n_\text{Mantel}}}
+%\newcommand{\lw}{\ensuremath{\lambda_\text{Schreib}}}
+%\newcommand{\lp}{\ensuremath{\lambda_\text{Test}}}
+%% Sonstiges
+%\newcommand*{\pic}[2][\textwidth]{\includegraphics[width=#1]{pics/chap\thechapter/#2}}	% Bilder aus definierten Ordnern
+
+%% Aufgabenverwaltung
+\usepackage[textwidth=2cm,			% Breite der Todo-Einträge
+            textsize=footnotesize,	% Schriftgröße der Einträge
+            %englisch,
+            german,					% deutsche Beschriftungen
+            shadow,					% Schlagschatten für Boxen (weils so hübsch ist)
+            colorinlistoftodos]{todonotes}% farbige Markierungen für unterschiedliche Aufgabentypen
+\newcommand{\detail}[1]{\todo[color=Green,inline]{detail: #1}~}				% Details könnten hinzugefügt werden
+\newcommand{\litcheck}[1]{\todo[color=LightSteelBlue,inline]{refcheck: #1}~}% muss noch einmal überprüft werden
+\newcommand{\src}[1][]{\todo[color=Tomato,inline]{reference! #1}~}			% Quelle fehlt
+
+%% Einstellungen zur Platzierung von Gleitumgebungen (Änderungen sinnvoll, wenn sehr viele vorhanden)
+%\renewcommand{\floatpagefraction}{.75} % vorher: .5
+%\renewcommand{\textfraction}{.1}       % vorher: .2
+%\renewcommand{\topfraction}{.8}       	% vorher: .7
+%\renewcommand{\bottomfraction}{.5}     % vorher: .3
+%\setcounter{topnumber}{3}              % vorher: 2
+%\setcounter{bottomnumber}{2}           % vorher: 1
+%\setcounter{totalnumber}{5}            % vorher: 3
+
+% =====================================
+% Ausfuehrung global wirkender Befehle
+% =====================================
+
+% --- Seiten-Layout der Kopf- und Fusszeile
+
+% Vordefinierter Seitenstil
+%\pagestyle{headings}% Fuss- und Kopfzeile mit Informationenangaben und Seitennummer gemaess der gewaehlten Dokumentenklasse
+
+% Eigene flexible Gestaltung mit dem Paket 'fancyhdr'
+\pagestyle{fancy}%		Flexibler Stil mit dem Paket 'fancyhdr'
+
+% Vereinfachte Darstellung der Kurzinfirmation bei einem Kapitel
+\renewcommand{\chaptermark}[1]{
+	\markboth{\thechapter \quad #1}{}}
+
+\ifthenelse{\boolean{@twoside}}
+{														% then Anweisung - also zweiseitiger Druck
+	\fancyhf{}											% Loeschen der Vorbelegung
+	\fancyhead[RO,LE]{\small\sffamily\bfseries\thepage}	% Ausgabe der Seitenzahl im Kopf rechts auf ungeraden und links auf geraden Seiten in kleinen, serifenlosen und fetten Schrift
+	\fancyhead[LO,RE]{\small\sffamily\nouppercase{\leftmark}}%	Ausgabe des Inhaltes von \leftmark im Kopf links auf ungeraden Seiten in kleinen und serifenlosen Schrift, 	wobei die Grossbuchstabenschreibung unerwuenscht ist (\nouppercase{})
+	\renewcommand{\headrulewidth}{0.4pt}				% Kopflinie
+	\renewcommand{\footrulewidth}{0pt}					% Fusslinie
+	\fancypagestyle{plain}{								% zu Beginn von Kapiteln schaltet LaTeX den Seitenstil der ersten Kapitelseite automatisch auf 'plain'. Dieser Seitenstil kann durch 'fancyhdr' umdefiniert werden mit Hilfe von '\fancypagestyle{plain}{Stildefinition}'
+		\fancyhf{}										% Loeschen der Vorbelegung
+		\fancyhead[RO,LE]{\small\sffamily\bfseries\thepage}% Ausgabe der Seitenzahl im Kopf rechts auf ungeraden und links auf geraden Seiten in kleinen, serifenlosen und fetten Schrift
+		\fancyhead[LO,RE]{\small\sffamily\nouppercase{\leftmark}}%	Ausgabe des Inhaltes von \leftmark im Kopf links auf ungeraden Seiten in kleinen und serifenlosen Schrift, wobei die Grossbuchstabenschreibung unerwuenscht ist (\nouppercase{})
+		\renewcommand{\headrulewidth}{0.4pt}			% Kopflinie
+		\renewcommand{\footrulewidth}{0pt}				% Fusslinie
+	}
+}
+{														% else Anweisung - also einseitige Einstellung
+	\fancyhf{}											% Loeschen der Vorbelegung
+	\fancyhead[R]{\small\sffamily\bfseries\thepage}		% Ausgabe der Seitenzahl im Kopf rechts in kleinen, serifenlosen und fetten Schrift
+	\fancyhead[L]{\small\sffamily\nouppercase{\leftmark}}% Ausgabe des Inhaltes von \leftmark im Kopf links in kleinen und serifenlosen Schrift, wobei die Grossbuchstabenschreibung unerwuenscht ist (\nouppercase{})
+	\renewcommand{\headrulewidth}{0.4pt}				% Kopflinie
+	\renewcommand{\footrulewidth}{0pt}					% Fusslinie
+	\fancypagestyle{plain}{								% zu Beginn von Kapiteln schaltet LaTeX den Seitenstil der ersten Kapitelseite automatisch auf 'plain'. Dieser Seitenstil kann durch 'fancyhdr' umdefiniert werden mit Hilfe von '\fancypagestyle{plain}{Stildefinition}'
+		\fancyhf{}%	Loeschen der Vorbelegung
+		\fancyhead[R]{\small\sffamily\bfseries\thepage}	% Ausgabe der Seitenzahl im Kopf rechts in kleinen, serifenlosen und fetten Schrift
+		\fancyhead[L]{\small\sffamily\nouppercase{\leftmark}}% Ausgabe des Inhaltes von \leftmark im Kopf links in kleinen und serifenlosen Schrift, wobei die Grossbuchstabenschreibung unerwuenscht ist (\nouppercase{})
+		\renewcommand{\headrulewidth}{0.4pt}			% Kopflinie
+		\renewcommand{\footrulewidth}{0pt}				% Fusslinie
+	}
+}
+
+% =====================================
+% Einstellung der PDF Metadaten
+% =====================================
+
+\hypersetup{	
+	pdftitle    = {Titel der PDF Datei},
+	pdfsubject  = {thesis},
+	pdfauthor   = {Lutz Althüser}
+	}
+
+% =====================================
+% Nur bestimmte Datien kompilieren/einbinden
+% =====================================
+
+% \includeonly{Dateiname,Dateiname,...} - werden nur diejenigen Dateien tatsaechlich mit \include eingebunden, die hier aufgaehlt werden. Ist \includeonly nicht vorhanden, so werden alle Dateien eingebunden.
+%\includeonly{chapters/b01-title,chapters/ch01,chapters/ch02}
+
+% ==========================================================
+
+\begin{document}
+
+% --- Titelblatt
+\pagenumbering{roman}
+\include{chapters/b01-title}
+\cleardoublepage
+% kleine roemische Seitenzahlen im Vorspann der Arbeit, Seitenzaehler wird automatisch auf 1 gesetzt
+%\listoftodos\todo[inline]{Delete this list of todos!}
+%\enlargethispage{1cm} % falls der letzte Punkte grade so nicht mehr draufpasst
+\pagenumbering{roman}
+% --- Zusammenfassung (Abstract)
+\include{chapters/b02-abstract}
+% --- Eidesstattliche Erklaerung
+\include{chapters/b03-affidavit}
+% --- Danksagung
+\include{chapters/b04-acknowledgement}
+% --- Inhaltsverzeichnis wird automatisch erzeugt
+\tableofcontents
+\cleardoublepage
+% technische Gruende, damit Inhaltsverzeichnis roemische Seitenzahl erhaelt
+\newpage
+% arabische Seitenzahlen im Rest der Arbeit, Seitenzaehler wird automatisch auf 1 gesetzt
+\pagenumbering{arabic}
+
+% --- Einleitung (Introduction)
+\include{chapters/ch00-introduction}
+% --- chapters
+\include{chapters/ch01}
+\include{chapters/ch02}
+% --- Zusammenfassung, Fazit und Ausblick
+\include{chapters/ch10-conclusion-outlook}
+
+% --- Anhang
+% bezeichnet den Beginn des Anhangs; Nummerierung der Kapitel wird auf fortlaufende Buchstaben umgeaendert
+\appendix
+% einbinden der verschiedenen Kapitel im Anhang
+
+% --- Abbilungsverzeichnis
+%\listoffigures
+% --- Tabellenverzeichnis
+%\listoftables
+% --- Literaturverzeichnis
+% Befehl wird verwendet, um BibTeX Eintraege ins Literaturverzeichnis aufzunehmen, die in der Arbeit NICHT zitiert werden
+% \nocite{Schluessel,Schluessel,...} oder \nocite{*} uebernimmt alle Eintraege einer BibTeX Literaturdatenbank ins aktuelle Literaturverzeichnis
+%\nocite{*}
+% legt die zu verwendete BibTeX Stildatei fest; einige Stildateien gehoeren zu Erweiterungspaketen, die ggf. zusaetzlich einzubinden sind
+\bibliographystyle{plain}
+% Befehl ist an der Stelle zu verwenden, an der das Literaturverzeichnis gesetzt werden soll
+\bibliography{bib/references}
+
+\end{document}
